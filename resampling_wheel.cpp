@@ -39,6 +39,26 @@ int main()
     //####   DON'T MODIFY ANYTHING ABOVE HERE! ENTER CODE BELOW ####
 
     //TODO: Resample the particles with a sample probability proportional to the importance weight
+    Robot p3[n];
+    int index = gen_real_random() * n; // random number between [0 and 1000)
+    double beta = 0.0;
+    double max_w = max(w,n);
+    for(int i=0; i<n; i++) {
+      beta += gen_real_random() * 2 * max_w;
+      while(w[index] < beta) {
+        beta -= w[index];
+        index += 1; // random index starts increasing
+                    // if the weight of such index was smaller than random beta
+      }
+      // replace the particle on such index
+      p[i] = p3[index];
+    }
+    // After replacing everything on p3, copy it to p,
+    // the distribution of particles is no longer uniform.
+    for (int k=0; k < n; k++) {
+        p[k] = p3[k];
+        cout << p[k].show_pose() << endl;
+    }
 
 
     return 0;
